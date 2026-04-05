@@ -1,0 +1,1391 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>ФПиКЭИАС — Статическая версия (GitHub Pages)</title>
+        <meta
+            name="description"
+            content="Статическая версия калькуляторов экономической эффективности ИАС (8 модулей) для GitHub Pages."
+        />
+        <link rel="stylesheet" href="./assets/style.css" />
+    </head>
+    <body>
+        <header class="topbar">
+            <div class="topbar-inner">
+                <div class="brand">ФПиКЭИАС · GitHub Pages</div>
+                <nav class="nav" id="topTabs"></nav>
+            </div>
+        </header>
+
+        <main class="wrap">
+            <section class="hero">
+                <h1>
+                    Калькуляторы экономической эффективности ИАС (8 модулей)
+                </h1>
+                <p>
+                    Полностью статическая реализация на HTML/CSS/JS. Все
+                    вычисления выполняются в браузере без backend.
+                </p>
+            </section>
+
+            <!-- МОДУЛЬ 1 -->
+            <section class="module active" id="module1">
+                <div class="card">
+                    <div class="card-head">
+                        Модуль 1 · Оценка экономической эффективности ИАС
+                    </div>
+                    <div class="card-body">
+                        <div class="actions" style="margin-bottom: 10px">
+                            <button class="btn secondary" data-m1="eff">
+                                1) Эффект, Eк, T
+                            </button>
+                            <button class="btn secondary" data-m1="economy">
+                                2) Годовая экономия П
+                            </button>
+                            <button class="btn secondary" data-m1="total">
+                                3) Суммарные затраты К
+                            </button>
+                            <button class="btn secondary" data-m1="period">
+                                4) Эффект за период Ω
+                            </button>
+                            <button class="btn secondary" data-m1="preprod">
+                                5) Предпроизводственные Пии
+                            </button>
+                            <button class="btn secondary" data-m1="capital">
+                                6) Капитальные Рк
+                            </button>
+                            <button class="btn secondary" data-m1="software">
+                                7) Трудоёмкость ПО
+                            </button>
+                            <button class="btn secondary" data-m1="current">
+                                8) Текущие Иг
+                            </button>
+                        </div>
+                        <p class="small">
+                            Нормативный коэффициент эффективности: <b>0.2</b>
+                        </p>
+
+                        <div id="m1-eff" class="m1-panel">
+                            <div class="grid three">
+                                <div>
+                                    <label for="m1eP">П (тыс. руб.)</label
+                                    ><input
+                                        id="m1eP"
+                                        type="number"
+                                        step="any"
+                                        value="1200"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1eK">К (тыс. руб.)</label
+                                    ><input
+                                        id="m1eK"
+                                        type="number"
+                                        step="any"
+                                        value="800"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1eR">Р (тыс. руб.)</label
+                                    ><input
+                                        id="m1eR"
+                                        type="number"
+                                        step="any"
+                                        value="500"
+                                    />
+                                </div>
+                            </div>
+                            <p class="actions">
+                                <button
+                                    class="btn primary"
+                                    onclick="calcM1Eff()"
+                                >
+                                    Рассчитать
+                                </button>
+                            </p>
+                            <div class="result" id="m1eOut"></div>
+                        </div>
+
+                        <div id="m1-economy" class="m1-panel hidden">
+                            <div class="grid three">
+                                <div>
+                                    <label for="m1p1">П1 (руб./год)</label
+                                    ><input
+                                        id="m1p1"
+                                        type="number"
+                                        step="any"
+                                        value="100000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1p2">П2 (руб./год)</label
+                                    ><input
+                                        id="m1p2"
+                                        type="number"
+                                        step="any"
+                                        value="50000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1p3">П3 (руб./год)</label
+                                    ><input
+                                        id="m1p3"
+                                        type="number"
+                                        step="any"
+                                        value="20000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1dt">ΔT (лет)</label
+                                    ><input
+                                        id="m1dt"
+                                        type="number"
+                                        step="any"
+                                        value="2"
+                                    />
+                                </div>
+                            </div>
+                            <p class="actions">
+                                <button
+                                    class="btn primary"
+                                    onclick="calcM1Economy()"
+                                >
+                                    Рассчитать
+                                </button>
+                            </p>
+                            <div class="result" id="m1ecoOut"></div>
+                        </div>
+
+                        <div id="m1-total" class="m1-panel hidden">
+                            <div class="grid three">
+                                <div>
+                                    <label for="m1I2">И2 (руб.)</label
+                                    ><input
+                                        id="m1I2"
+                                        type="number"
+                                        step="any"
+                                        value="350000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1Ps">Р (руб.)</label
+                                    ><input
+                                        id="m1Ps"
+                                        type="number"
+                                        step="any"
+                                        value="500000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1TotalMethod"
+                                        >Способ расчёта kр</label
+                                    >
+                                    <select id="m1TotalMethod">
+                                        <option value="table">
+                                            По таблице (Tсл 1..15)
+                                        </option>
+                                        <option value="formula">
+                                            По формуле
+                                        </option>
+                                    </select>
+                                </div>
+                                <div id="m1TslBlock">
+                                    <label for="m1Tsl">Tсл (1..15)</label
+                                    ><input
+                                        id="m1Tsl"
+                                        type="number"
+                                        min="1"
+                                        max="15"
+                                        step="1"
+                                        value="5"
+                                    />
+                                </div>
+                                <div id="m1TslFBlock" class="hidden">
+                                    <label for="m1TslF"
+                                        >Tсл (произвольный)</label
+                                    ><input
+                                        id="m1TslF"
+                                        type="number"
+                                        step="any"
+                                        value="5"
+                                    />
+                                </div>
+                            </div>
+                            <p class="actions">
+                                <button
+                                    class="btn primary"
+                                    onclick="calcM1Total()"
+                                >
+                                    Рассчитать
+                                </button>
+                            </p>
+                            <div class="result" id="m1totOut"></div>
+                        </div>
+
+                        <div id="m1-period" class="m1-panel hidden">
+                            <p class="hint">
+                                Формат строк: <code>год,экономия,затраты</code>.
+                                Пример: <code>-1,150000,80000</code>
+                            </p>
+                            <textarea id="m1periodTxt" rows="6">
+-1,150000,80000
+0,220000,100000
+1,260000,120000</textarea
+                            >
+                            <p class="actions">
+                                <button
+                                    class="btn primary"
+                                    onclick="calcM1Period()"
+                                >
+                                    Рассчитать
+                                </button>
+                            </p>
+                            <div class="result" id="m1perOut"></div>
+                        </div>
+
+                        <div id="m1-preprod" class="m1-panel hidden">
+                            <div class="grid two">
+                                <div>
+                                    <label for="m1PreMethod"
+                                        >Метод расчёта</label
+                                    >
+                                    <select id="m1PreMethod">
+                                        <option value="components">
+                                            По составляющим
+                                        </option>
+                                        <option value="estimate">
+                                            По смете (tпр × Cд)
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div
+                                id="m1PreComponents"
+                                class="grid two"
+                                style="margin-top: 10px"
+                            >
+                                <div>
+                                    <label for="m1pip">Пип</label
+                                    ><input
+                                        id="m1pip"
+                                        type="number"
+                                        value="100000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1ppo">Ппо</label
+                                    ><input
+                                        id="m1ppo"
+                                        type="number"
+                                        value="180000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1pio">Пио</label
+                                    ><input
+                                        id="m1pio"
+                                        type="number"
+                                        value="90000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1pbb">Пвв</label
+                                    ><input
+                                        id="m1pbb"
+                                        type="number"
+                                        value="70000"
+                                    />
+                                </div>
+                            </div>
+
+                            <div
+                                id="m1PreEstimate"
+                                class="grid two hidden"
+                                style="margin-top: 10px"
+                            >
+                                <div>
+                                    <label for="m1tpr">tпр (чел.-дн.)</label
+                                    ><input
+                                        id="m1tpr"
+                                        type="number"
+                                        step="any"
+                                        value="120"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1cd">Cд (руб./чел.-дн.)</label
+                                    ><input
+                                        id="m1cd"
+                                        type="number"
+                                        step="any"
+                                        value="1500"
+                                    />
+                                </div>
+                            </div>
+
+                            <p class="actions">
+                                <button
+                                    class="btn primary"
+                                    onclick="calcM1Preprod()"
+                                >
+                                    Рассчитать
+                                </button>
+                            </p>
+                            <div class="result" id="m1preOut"></div>
+                        </div>
+
+                        <div id="m1-capital" class="m1-panel hidden">
+                            <div class="grid three">
+                                <div>
+                                    <label for="m1r1">Рктс</label
+                                    ><input
+                                        id="m1r1"
+                                        type="number"
+                                        value="250000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1r2">Рмонт</label
+                                    ><input
+                                        id="m1r2"
+                                        type="number"
+                                        value="50000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1r3">Ринв</label
+                                    ><input
+                                        id="m1r3"
+                                        type="number"
+                                        value="20000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1r4">Рзд</label
+                                    ><input
+                                        id="m1r4"
+                                        type="number"
+                                        value="30000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1r5">Рос</label
+                                    ><input
+                                        id="m1r5"
+                                        type="number"
+                                        value="25000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1r6">Ртр</label
+                                    ><input
+                                        id="m1r6"
+                                        type="number"
+                                        value="12000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1r7">Рсоп</label
+                                    ><input
+                                        id="m1r7"
+                                        type="number"
+                                        value="15000"
+                                    />
+                                </div>
+                            </div>
+
+                            <label
+                                style="
+                                    display: flex;
+                                    gap: 8px;
+                                    align-items: center;
+                                    margin-top: 10px;
+                                "
+                            >
+                                <input
+                                    id="m1usev"
+                                    type="checkbox"
+                                    style="width: auto"
+                                />
+                                Учесть высвобождаемые средства (формула 14)
+                            </label>
+
+                            <div
+                                id="m1vBlock"
+                                class="grid three hidden"
+                                style="margin-top: 10px"
+                            >
+                                <div>
+                                    <label for="m1vfirst"
+                                        >Первоначальная стоимость
+                                        высвобождаемого средства, руб.</label
+                                    ><input
+                                        id="m1vfirst"
+                                        type="number"
+                                        step="any"
+                                        value="0"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1anorm"
+                                        >Норма амортизации a (доля)</label
+                                    ><input
+                                        id="m1anorm"
+                                        type="number"
+                                        step="any"
+                                        value="0.1"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1ttehn"
+                                        >Срок эксплуатации, лет</label
+                                    ><input
+                                        id="m1ttehn"
+                                        type="number"
+                                        step="any"
+                                        value="2"
+                                    />
+                                </div>
+                            </div>
+
+                            <p class="actions">
+                                <button
+                                    class="btn primary"
+                                    onclick="calcM1Capital()"
+                                >
+                                    Рассчитать
+                                </button>
+                            </p>
+                            <div class="result" id="m1capOut"></div>
+                        </div>
+
+                        <div id="m1-software" class="m1-panel hidden">
+                            <div class="grid">
+                                <div>
+                                    <label for="m1n"
+                                        >n (тыс. исходных команд)</label
+                                    ><input
+                                        id="m1n"
+                                        type="number"
+                                        step="any"
+                                        value="1.2"
+                                    />
+                                </div>
+                            </div>
+                            <p class="actions">
+                                <button
+                                    class="btn primary"
+                                    onclick="calcM1Soft()"
+                                >
+                                    Рассчитать
+                                </button>
+                            </p>
+                            <div class="result" id="m1softOut"></div>
+                        </div>
+
+                        <div id="m1-current" class="m1-panel hidden">
+                            <div class="grid two">
+                                <div>
+                                    <label for="m1CurMethod"
+                                        >Метод расчёта Иг</label
+                                    >
+                                    <select id="m1CurMethod">
+                                        <option value="first">
+                                            Первый метод (через составляющие)
+                                        </option>
+                                        <option value="second">
+                                            Второй метод (сумма по задачам +
+                                            Исист)
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div
+                                id="m1CurFirst"
+                                class="grid three"
+                                style="margin-top: 10px"
+                            >
+                                <div>
+                                    <label for="m1ikts">Иктс</label
+                                    ><input
+                                        id="m1ikts"
+                                        type="number"
+                                        value="120000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1ison">Исон</label
+                                    ><input
+                                        id="m1ison"
+                                        type="number"
+                                        value="65000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1in">Ин</label
+                                    ><input
+                                        id="m1in"
+                                        type="number"
+                                        value="30000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1iz1">Из эксплуатации</label
+                                    ><input
+                                        id="m1iz1"
+                                        type="number"
+                                        value="180000"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="m1iz2">Из специалистов</label
+                                    ><input
+                                        id="m1iz2"
+                                        type="number"
+                                        value="220000"
+                                    />
+                                </div>
+                            </div>
+
+                            <div
+                                id="m1CurSecond"
+                                class="hidden"
+                                style="margin-top: 10px"
+                            >
+                                <p class="hint">
+                                    Список затрат по задачам. Формат:
+                                    <code>название,сумма</code> или просто
+                                    <code>сумма</code> в строке.
+                                </p>
+                                <textarea id="m1tasks" rows="5">
+Задача 1,50000
+Задача 2,42000
+31000</textarea
+                                >
+                                <div class="grid two" style="margin-top: 10px">
+                                    <div>
+                                        <label for="m1isist">Исист</label
+                                        ><input
+                                            id="m1isist"
+                                            type="number"
+                                            value="150000"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="actions">
+                                <button
+                                    class="btn primary"
+                                    onclick="calcM1Current()"
+                                >
+                                    Рассчитать
+                                </button>
+                            </p>
+                            <div class="result" id="m1curOut"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- МОДУЛЬ 2 -->
+            <section class="module" id="module2">
+                <div class="card">
+                    <div class="card-head">
+                        Модуль 2 · Оценка эффективности АРМ
+                    </div>
+                    <div class="card-body">
+                        <div class="grid three">
+                            <div>
+                                <label for="m2Nz">Nз</label
+                                ><input id="m2Nz" type="number" value="50" />
+                            </div>
+                            <div>
+                                <label for="m2tzb">tз баз (чел.-ч)</label
+                                ><input
+                                    id="m2tzb"
+                                    type="number"
+                                    step="any"
+                                    value="20"
+                                />
+                            </div>
+                            <div>
+                                <label for="m2tzp">tз проект (маш.-ч)</label
+                                ><input
+                                    id="m2tzp"
+                                    type="number"
+                                    step="any"
+                                    value="0.15"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m2Nd">Nд</label
+                                ><input id="m2Nd" type="number" value="200" />
+                            </div>
+                            <div>
+                                <label for="m2tdb">tд баз</label
+                                ><input
+                                    id="m2tdb"
+                                    type="number"
+                                    step="any"
+                                    value="3"
+                                />
+                            </div>
+                            <div>
+                                <label for="m2tdp">tд проект</label
+                                ><input
+                                    id="m2tdp"
+                                    type="number"
+                                    step="any"
+                                    value="0.1"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m2Cm">См</label
+                                ><input
+                                    id="m2Cm"
+                                    type="number"
+                                    step="any"
+                                    value="150"
+                                />
+                            </div>
+                            <div>
+                                <label for="m2Ikts">Иктс</label
+                                ><input
+                                    id="m2Ikts"
+                                    type="number"
+                                    step="any"
+                                    value="10307.5"
+                                />
+                            </div>
+                            <div>
+                                <label for="m2Iz">Из спец (мес)</label
+                                ><input
+                                    id="m2Iz"
+                                    type="number"
+                                    step="any"
+                                    value="12890"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m2Cmm">Смм</label
+                                ><input
+                                    id="m2Cmm"
+                                    type="number"
+                                    step="any"
+                                    value="33"
+                                />
+                            </div>
+                            <div>
+                                <label for="m2Cs">Сс</label
+                                ><input
+                                    id="m2Cs"
+                                    type="number"
+                                    step="any"
+                                    value="67"
+                                />
+                            </div>
+                            <div>
+                                <label for="m2tbd">tбд</label
+                                ><input
+                                    id="m2tbd"
+                                    type="number"
+                                    step="any"
+                                    value="4"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m2tvv">tвв</label
+                                ><input
+                                    id="m2tvv"
+                                    type="number"
+                                    step="any"
+                                    value="4"
+                                />
+                            </div>
+                            <div>
+                                <label for="m2sec">ЗП секретаря/мес</label
+                                ><input
+                                    id="m2sec"
+                                    type="number"
+                                    step="any"
+                                    value="6700"
+                                />
+                            </div>
+                            <div>
+                                <label for="m2n">n (тыс. команд)</label
+                                ><input
+                                    id="m2n"
+                                    type="number"
+                                    step="any"
+                                    value="1"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m2Cpr">Спр (руб./день)</label
+                                ><input
+                                    id="m2Cpr"
+                                    type="number"
+                                    step="any"
+                                    value="200"
+                                />
+                            </div>
+                            <div>
+                                <label for="m2dT">ΔT (лет)</label
+                                ><input
+                                    id="m2dT"
+                                    type="number"
+                                    step="any"
+                                    value="2"
+                                />
+                            </div>
+                            <div>
+                                <label for="m2En">Eн</label
+                                ><input
+                                    id="m2En"
+                                    type="number"
+                                    step="any"
+                                    value="0.15"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m2years">Лет</label
+                                ><input id="m2years" type="number" value="3" />
+                            </div>
+                        </div>
+                        <p class="actions">
+                            <button class="btn primary" onclick="calcM2()">
+                                Рассчитать
+                            </button>
+                        </p>
+                        <div class="result" id="m2Out"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- МОДУЛЬ 3 -->
+            <section class="module" id="module3">
+                <div class="card">
+                    <div class="card-head">
+                        Модуль 3 · Предварительное обоснование интегрированной
+                        ИАС
+                    </div>
+                    <div class="card-body">
+                        <div class="grid three">
+                            <div>
+                                <label for="m3N">Nпл</label
+                                ><input id="m3N" type="number" value="50" />
+                            </div>
+                            <div>
+                                <label for="m3En">Eн</label
+                                ><input
+                                    id="m3En"
+                                    type="number"
+                                    step="any"
+                                    value="0.2"
+                                />
+                            </div>
+                            <div>
+                                <label for="m3k1">k1</label
+                                ><input
+                                    id="m3k1"
+                                    type="number"
+                                    step="any"
+                                    value="1.3"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m3k2">k2</label
+                                ><input
+                                    id="m3k2"
+                                    type="number"
+                                    step="any"
+                                    value="1.12"
+                                />
+                            </div>
+                            <div>
+                                <label for="m3k3">k3</label
+                                ><input
+                                    id="m3k3"
+                                    type="number"
+                                    step="any"
+                                    value="1.34"
+                                />
+                            </div>
+                            <div>
+                                <label for="m3Wb">W баз</label
+                                ><input
+                                    id="m3Wb"
+                                    type="number"
+                                    value="180000"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m3Wp">W проект</label
+                                ><input
+                                    id="m3Wp"
+                                    type="number"
+                                    value="120000"
+                                />
+                            </div>
+                            <div>
+                                <label for="m3Kb">Kео баз</label
+                                ><input
+                                    id="m3Kb"
+                                    type="number"
+                                    value="250000"
+                                />
+                            </div>
+                            <div>
+                                <label for="m3Kp">Kео проект</label
+                                ><input
+                                    id="m3Kp"
+                                    type="number"
+                                    value="330000"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m3Zb">Зопл баз (на решение)</label
+                                ><input id="m3Zb" type="number" value="9000" />
+                            </div>
+                            <div>
+                                <label for="m3Zp"
+                                    >Зопл проект (на решение)</label
+                                ><input id="m3Zp" type="number" value="6500" />
+                            </div>
+                            <div>
+                                <label for="m3Esop">Эсоп</label
+                                ><input id="m3Esop" type="number" value="0" />
+                            </div>
+                        </div>
+                        <p class="actions">
+                            <button class="btn primary" onclick="calcM3()">
+                                Рассчитать
+                            </button>
+                        </p>
+                        <div class="result" id="m3Out"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- МОДУЛЬ 4 -->
+            <section class="module" id="module4">
+                <div class="card">
+                    <div class="card-head">
+                        Модуль 4 · Годовой эффект внедрения ИАС
+                    </div>
+                    <div class="card-body">
+                        <div class="grid three">
+                            <div>
+                                <label for="m4H">H</label
+                                ><input id="m4H" type="number" value="200" />
+                            </div>
+                            <div>
+                                <label for="m4Tb">Tбаз</label
+                                ><input
+                                    id="m4Tb"
+                                    type="number"
+                                    step="any"
+                                    value="26.38"
+                                />
+                            </div>
+                            <div>
+                                <label for="m4Ti">Tиас</label
+                                ><input
+                                    id="m4Ti"
+                                    type="number"
+                                    step="any"
+                                    value="5.38"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m4Fpv">Фпв</label
+                                ><input
+                                    id="m4Fpv"
+                                    type="number"
+                                    step="any"
+                                    value="1020"
+                                />
+                            </div>
+                            <div>
+                                <label for="m4Kvn">Kвн</label
+                                ><input
+                                    id="m4Kvn"
+                                    type="number"
+                                    step="any"
+                                    value="1.2"
+                                />
+                            </div>
+                            <div>
+                                <label for="m4Ch">Cч</label
+                                ><input
+                                    id="m4Ch"
+                                    type="number"
+                                    step="any"
+                                    value="60"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m4Kp">Kп</label
+                                ><input
+                                    id="m4Kp"
+                                    type="number"
+                                    step="any"
+                                    value="1.7"
+                                />
+                            </div>
+                            <div>
+                                <label for="m4Kr">Kр</label
+                                ><input
+                                    id="m4Kr"
+                                    type="number"
+                                    step="any"
+                                    value="1"
+                                />
+                            </div>
+                            <div>
+                                <label for="m4Kd">Kд</label
+                                ><input
+                                    id="m4Kd"
+                                    type="number"
+                                    step="any"
+                                    value="1.08"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m4Ks">Kс</label
+                                ><input
+                                    id="m4Ks"
+                                    type="number"
+                                    step="any"
+                                    value="1.34"
+                                />
+                            </div>
+                            <div>
+                                <label for="m4Kn">Kн</label
+                                ><input
+                                    id="m4Kn"
+                                    type="number"
+                                    step="any"
+                                    value="1.6"
+                                />
+                            </div>
+                            <div>
+                                <label for="m4Zsr">Zср</label
+                                ><input
+                                    id="m4Zsr"
+                                    type="number"
+                                    value="10000"
+                                />
+                            </div>
+                            <div>
+                                <label for="m4Chs">Ч</label
+                                ><input id="m4Chs" type="number" value="2" />
+                            </div>
+
+                            <div>
+                                <label for="m4Na">Na</label
+                                ><input
+                                    id="m4Na"
+                                    type="number"
+                                    step="any"
+                                    value="0.2"
+                                />
+                            </div>
+                            <div>
+                                <label for="m4Cp">Cперв</label
+                                ><input id="m4Cp" type="number" value="20000" />
+                            </div>
+                            <div>
+                                <label for="m4Kvt">Kвт</label
+                                ><input
+                                    id="m4Kvt"
+                                    type="number"
+                                    value="76500"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m4Kstr">Kстр</label
+                                ><input
+                                    id="m4Kstr"
+                                    type="number"
+                                    value="26000"
+                                />
+                            </div>
+                            <div>
+                                <label for="m4Fg">Фг</label
+                                ><input id="m4Fg" type="number" value="1020" />
+                            </div>
+                            <div>
+                                <label for="m4Ce">Cэ</label
+                                ><input
+                                    id="m4Ce"
+                                    type="number"
+                                    step="any"
+                                    value="6.6"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m4Pel">N мощн</label
+                                ><input
+                                    id="m4Pel"
+                                    type="number"
+                                    step="any"
+                                    value="0.5"
+                                />
+                            </div>
+                            <div>
+                                <label for="m4Kz">Kз</label
+                                ><input
+                                    id="m4Kz"
+                                    type="number"
+                                    step="any"
+                                    value="1"
+                                />
+                            </div>
+                            <div>
+                                <label for="m4Kpr">Kпр</label
+                                ><input
+                                    id="m4Kpr"
+                                    type="number"
+                                    value="13000"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m4Tts">Tцппп</label
+                                ><input
+                                    id="m4Tts"
+                                    type="number"
+                                    step="any"
+                                    value="0.17"
+                                />
+                            </div>
+                            <div>
+                                <label for="m4d">d</label
+                                ><input
+                                    id="m4d"
+                                    type="number"
+                                    step="any"
+                                    value="0.54"
+                                />
+                            </div>
+                            <div>
+                                <label for="m4En">Eн</label
+                                ><input
+                                    id="m4En"
+                                    type="number"
+                                    step="any"
+                                    value="0.2"
+                                />
+                            </div>
+                        </div>
+                        <p class="actions">
+                            <button class="btn primary" onclick="calcM4()">
+                                Рассчитать
+                            </button>
+                        </p>
+                        <div class="result" id="m4Out"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- МОДУЛЬ 5 -->
+            <section class="module" id="module5">
+                <div class="card">
+                    <div class="card-head">
+                        Модуль 5 · Калькуляция себестоимости разработки ПО
+                    </div>
+                    <div class="card-body">
+                        <div class="grid three">
+                            <div>
+                                <label for="m5mat">Материалы (руб.)</label
+                                ><input id="m5mat" type="number" value="3500" />
+                            </div>
+                            <div>
+                                <label for="m5base">Осн. ЗП (руб.)</label
+                                ><input
+                                    id="m5base"
+                                    type="number"
+                                    value="180000"
+                                />
+                            </div>
+                            <div>
+                                <label for="m5addp">Доп. ЗП, %</label
+                                ><input
+                                    id="m5addp"
+                                    type="number"
+                                    step="any"
+                                    value="10"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m5socp">Соц. отчисления, %</label
+                                ><input
+                                    id="m5socp"
+                                    type="number"
+                                    step="any"
+                                    value="34"
+                                />
+                            </div>
+                            <div>
+                                <label for="m5ch"
+                                    >Себестоимость 1 маш.-час (руб.)</label
+                                ><input
+                                    id="m5ch"
+                                    type="number"
+                                    step="any"
+                                    value="210"
+                                />
+                            </div>
+                            <div>
+                                <label for="m5pch">Время ПЭВМ (час)</label
+                                ><input
+                                    id="m5pch"
+                                    type="number"
+                                    step="any"
+                                    value="500"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m5ov">Накладные (руб.)</label
+                                ><input id="m5ov" type="number" value="85000" />
+                            </div>
+                            <div>
+                                <label for="m5oth">Прочие (руб.)</label
+                                ><input id="m5oth" type="number" value="0" />
+                            </div>
+                        </div>
+                        <p class="actions">
+                            <button class="btn primary" onclick="calcM5()">
+                                Рассчитать
+                            </button>
+                        </p>
+                        <div class="result" id="m5Out"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- МОДУЛЬ 6 -->
+            <section class="module" id="module6">
+                <div class="card">
+                    <div class="card-head">
+                        Модуль 6 · Себестоимость программного продукта
+                    </div>
+                    <div class="card-body">
+                        <div class="grid three">
+                            <div>
+                                <label for="m6q">q</label
+                                ><input id="m6q" type="number" value="1086" />
+                            </div>
+                            <div>
+                                <label for="m6p">p</label
+                                ><input
+                                    id="m6p"
+                                    type="number"
+                                    step="any"
+                                    value="0.06"
+                                />
+                            </div>
+                            <div>
+                                <label for="m6c">c (коэф. сложности)</label
+                                ><input
+                                    id="m6c"
+                                    type="number"
+                                    step="any"
+                                    value="1.22"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m6B">B</label
+                                ><input
+                                    id="m6B"
+                                    type="number"
+                                    step="any"
+                                    value="1.35"
+                                />
+                            </div>
+                            <div>
+                                <label for="m6k">k (квалификация)</label
+                                ><input
+                                    id="m6k"
+                                    type="number"
+                                    step="any"
+                                    value="1.0"
+                                />
+                            </div>
+                            <div>
+                                <label for="m6sal">Оклад/мес</label
+                                ><input
+                                    id="m6sal"
+                                    type="number"
+                                    value="10850"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m6dpm">Дней/мес</label
+                                ><input id="m6dpm" type="number" value="21" />
+                            </div>
+                            <div>
+                                <label for="m6hpd">Часов/день</label
+                                ><input id="m6hpd" type="number" value="8" />
+                            </div>
+                            <div>
+                                <label for="m6soc">Соц.%</label
+                                ><input
+                                    id="m6soc"
+                                    type="number"
+                                    step="any"
+                                    value="34"
+                                />
+                            </div>
+
+                            <div>
+                                <label for="m6ov">Накладн.%</label
+                                ><input
+                                    id="m6ov"
+                                    type="number"
+                                    step="any"
+                                    value="50"
+                                />
+                            </div>
+                            <div>
+                                <label for="m6pc">Стоимость ПК</label
+                                ><input id="m6pc" type="number" value="26400" />
+                            </div>
+                            <div>
+                                <label for="m6matp">Материалы %</label
+                                ><input
+                                    id="m6matp"
+                                    type="number"
+                                    step="any"
+                                    value="1.5"
+                                />
+                            </div>
+                        </div>
+                        <p class="actions">
+                            <button class="btn primary" onclick="calcM6()">
+                                Рассчитать
+                            </button>
+                        </p>
+                        <div class="result" id="m6Out"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- МОДУЛЬ 7 -->
+            <section class="module" id="module7">
+                <div class="card">
+                    <div class="card-head">
+                        Модуль 7 · Сравнение Cognos / IBM / ARIS
+                    </div>
+                    <div class="card-body">
+                        <div class="grid two">
+                            <div>
+                                <label for="m7seats">Рабочих мест</label
+                                ><input id="m7seats" type="number" value="10" />
+                            </div>
+                            <div>
+                                <label for="m7ibm">IBM версия</label>
+                                <select id="m7ibm">
+                                    <option value="basic">Basic</option>
+                                    <option value="advanced">Advanced</option>
+                                </select>
+                            </div>
+                        </div>
+                        <p class="actions">
+                            <button class="btn primary" onclick="calcM7()">
+                                Рассчитать
+                            </button>
+                        </p>
+                        <div class="result" id="m7Out"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- МОДУЛЬ 8 -->
+            <section class="module" id="module8">
+                <div class="card">
+                    <div class="card-head">
+                        Модуль 8 · Сравнение SAP / Oracle / Hyperion / Business
+                        Studio
+                    </div>
+                    <div class="card-body">
+                        <div class="grid three">
+                            <div>
+                                <label for="m8seats">Рабочих мест</label
+                                ><input id="m8seats" type="number" value="10" />
+                            </div>
+                            <div>
+                                <label for="m8sap">SAP USD/место</label
+                                ><input id="m8sap" type="number" value="2500" />
+                            </div>
+                            <div>
+                                <label for="m8or">Oracle USD/место</label
+                                ><input id="m8or" type="number" value="2000" />
+                            </div>
+
+                            <div>
+                                <label for="m8usd">Курс USD→RUB</label
+                                ><input
+                                    id="m8usd"
+                                    type="number"
+                                    step="any"
+                                    value="95"
+                                />
+                            </div>
+                            <div>
+                                <label for="m8bs">BS версия</label>
+                                <select id="m8bs">
+                                    <option value="basic">Basic</option>
+                                    <option value="advanced">Advanced</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="m8cock">Добавить Cockpit</label>
+                                <select id="m8cock">
+                                    <option value="no">Нет</option>
+                                    <option value="yes">Да</option>
+                                </select>
+                            </div>
+                        </div>
+                        <p class="actions">
+                            <button class="btn primary" onclick="calcM8()">
+                                Рассчитать
+                            </button>
+                        </p>
+                        <div class="result" id="m8Out"></div>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                © 2026 · Статическая версия для GitHub Pages · Все вычисления
+                выполняются в браузере
+            </footer>
+        </main>
+
+        <script src="./assets/app.js"></script>
+    </body>
+</html>

@@ -1,0 +1,292 @@
+:root {
+  --bg: #f4f7fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --ok: #0f766e;
+  --danger: #b91c1c;
+  --radius: 14px;
+  --shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+a {
+  color: var(--primary);
+}
+
+code {
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: #ffffffdd;
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-weight: 700;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.nav-btn {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: white;
+  padding: 8px 12px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.nav-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #0ea5e9 100%);
+  color: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: 1.65rem;
+}
+
+.hero p {
+  margin: 0;
+  opacity: 0.95;
+}
+
+.module {
+  display: none;
+}
+
+.module.active {
+  display: block;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 14px;
+}
+
+.card-head {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  font-weight: 700;
+}
+
+.card-body {
+  padding: 14px 16px;
+}
+
+.grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+}
+
+.grid.two {
+  grid-template-columns: 1fr;
+}
+
+.grid.three {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 760px) {
+  .grid.two {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .grid.three {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  margin: 0 0 6px;
+  color: #374151;
+}
+
+input,
+select,
+textarea,
+button {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 11px;
+  font: inherit;
+  background: white;
+  color: var(--text);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14);
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  font-weight: 600;
+}
+
+.btn.primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn.secondary {
+  background: white;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  width: auto;
+}
+
+.result {
+  margin-top: 10px;
+  border: 1px dashed #cbd5e1;
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.kpis {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .kpis {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.kpi {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+}
+
+.kpi .k {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.ok {
+  color: var(--ok);
+  font-weight: 700;
+}
+
+.bad {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+.hint {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid var(--line);
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #f8fafc;
+}
+
+small,
+.small {
+  color: var(--muted);
+}
+
+footer {
+  margin: 20px 0 8px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.hidden {
+  display: none !important;
+}
