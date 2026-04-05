@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Расчёт годовой экономии{% endblock %}
+{% block content %}
+    <h2>Расчёт годовой экономии (прироста прибыли) по составляющим</h2>
+    <form method="post" class="col-md-6">
+        <div class="mb-3">
+            <label class="form-label">Экономия от сокращения затрат трудовых и материальных ресурсов (П₁), руб./год</label>
+            <input type="number" step="any" name="p1" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Экономия от повышения качества и потребительских свойств (П₂), руб./год</label>
+            <input type="number" step="any" name="p2" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Дополнительная прибыль от приоритетной новизны (П₃), руб./год</label>
+            <input type="number" step="any" name="p3" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Сокращение длительности автоматизируемого процесса ΔT, лет</label>
+            <input type="number" step="any" name="dt" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Рассчитать</button>
+    </form>
+
+    {% if result %}
+        <hr>
+        <h4>Результат:</h4>
+        {% if result.error %}
+            <div class="alert alert-danger">{{ result.error }}</div>
+        {% else %}
+            <div class="alert alert-success">Годовая экономия П = {{ result.P_total }} руб./год</div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

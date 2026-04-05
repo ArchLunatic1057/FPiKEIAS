@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% block title %}Модуль 2 – Оценка эффективности АРМ{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Оценка экономической эффективности создания автоматизированного рабочего места (АРМ)</h2>
+
+    <!-- Таблица 1: Исходные данные -->
+    <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Таблица 1 – Исходные данные для расчета</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" class="row g-3">
+                <div class="col-md-12">
+                    <h6>1. Параметры задач и документов</h6>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Количество задач в год (N<sub>з</sub>)</label>
+                    <input type="number" step="any" name="N_z" class="form-control" value="{{ result.defaults.N_z if result.defaults else 50 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Трудоёмкость задачи (баз.) t<sub>з</sub>, чел.-час</label>
+                    <input type="number" step="any" name="tz_baz" class="form-control" value="{{ result.defaults.tz_baz if result.defaults else 20 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Трудоёмкость задачи (проект.) t<sub>з</sub>, маш.-час</label>
+                    <input type="number" step="any" name="tz_proj" class="form-control" value="{{ result.defaults.tz_proj if result.defaults else 0.15 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Количество документов в год (N<sub>д</sub>)</label>
+                    <input type="number" step="any" name="N_d" class="form-control" value="{{ result.defaults.N_d if result.defaults else 200 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Время печати (баз.) t<sub>д</sub>, чел.-час</label>
+                    <input type="number" step="any" name="td_baz" class="form-control" value="{{ result.defaults.td_baz if result.defaults else 3 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Время печати (проект.) t<sub>д</sub>, маш.-час</label>
+                    <input type="number" step="any" name="td_proj" class="form-control" value="{{ result.defaults.td_proj if result.defaults else 0.1 }}">
+                </div>
+
+                <div class="col-md-12 mt-3">
+                    <h6>2. Стоимостные и временные параметры</h6>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Стоимость маш. часа С<sub>м</sub>, руб.</label>
+                    <input type="number" step="any" name="Cm" class="form-control" value="{{ result.defaults.Cm if result.defaults else 150 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Годовые эксплуатац. расходы КТС И<sub>ктс</sub>, руб.</label>
+                    <input type="number" step="any" name="I_kts" class="form-control" value="{{ result.defaults.I_kts if result.defaults else 10307.5 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Зарплата специалиста (И<sub>з</sub>), руб./мес.</label>
+                    <input type="number" step="any" name="Iz_spec" class="form-control" value="{{ result.defaults.Iz_spec if result.defaults else 12890 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Стоимость трудозатрат машинистки С<sub>мм</sub>, руб./чел.-час</label>
+                    <input type="number" step="any" name="Cmm" class="form-control" value="{{ result.defaults.Cmm if result.defaults else 33 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Стоимость трудозатрат специалиста С<sub>с</sub>, руб./чел.-час</label>
+                    <input type="number" step="any" name="Cs" class="form-control" value="{{ result.defaults.Cs if result.defaults else 67 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Время создания БД t<sub>бд</sub>, маш.-час</label>
+                    <input type="number" step="any" name="t_bd" class="form-control" value="{{ result.defaults.t_bd if result.defaults else 4 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Время отладки и ввода t<sub>вв</sub>, маш.-час</label>
+                    <input type="number" step="any" name="t_vv" class="form-control" value="{{ result.defaults.t_vv if result.defaults else 4 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Зарплата секретаря (с начислениями), руб./мес.</label>
+                    <input type="number" step="any" name="salary_secretary_month" class="form-control" value="{{ result.defaults.salary_secretary_month if result.defaults else 6700 }}">
+                </div>
+
+                <div class="col-md-12 mt-3">
+                    <h6>3. Параметры разработки ПО</h6>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Объём программы n, тыс. исходных команд</label>
+                    <input type="number" step="any" name="n" class="form-control" value="{{ result.defaults.n if result.defaults else 1 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Стоимость трудодня программиста С<sub>пр</sub>, руб.</label>
+                    <input type="number" step="any" name="Cpr" class="form-control" value="{{ result.defaults.Cpr if result.defaults else 200 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Сокращение длительности процесса ΔT, лет</label>
+                    <input type="number" step="any" name="delta_T" class="form-control" value="{{ result.defaults.delta_T if result.defaults else 2 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Норматив эффективности E<sub>н</sub></label>
+                    <input type="number" step="any" name="En" class="form-control" value="{{ result.defaults.En if result.defaults else 0.15 }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Количество лет функционирования</label>
+                    <input type="number" step="1" name="years" class="form-control" value="{{ result.defaults.years if result.defaults else 3 }}">
+                </div>
+
+                <div class="col-12 mt-4">
+                    <button type="submit" class="btn btn-primary">Выполнить расчёт</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if result and result.error %}
+        <div class="alert alert-danger mt-4">{{ result.error }}</div>
+    {% elif result and result.P is defined %}
+        <hr>
+        <h4>Результаты расчёта</h4>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">Единовременные затраты</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Трудоёмкость t = {{ result.t }} чел.-мес.</li>
+                        <li class="list-group-item">Длительность разработки T<sub>n</sub> = {{ result.T_n }} мес.</li>
+                        <li class="list-group-item">Затраты на программирование P<sub>no</sub> = {{ result.P_no | money("RUB") }}</li>
+                        <li class="list-group-item">Затраты на информационное обеспечение P<sub>io</sub> = {{ result.P_io | money("RUB") }}</li>
+                        <li class="list-group-item">Затраты на ввод в эксплуатацию P<sub>ve</sub> = {{ result.P_ve | money("RUB") }}</li>
+                        <li class="list-group-item"><strong>Итого единовременные затраты P = {{ result.P | money("RUB") }}</strong></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">Текущие затраты</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Годовые текущие затраты И<sub>г</sub> = {{ result.I_g | money("RUB") }}/год</li>
+                        <li class="list-group-item">Сумма коэффициентов приведения за {{ result.years }} года = {{ result.alpha_sum }}</li>
+                        <li class="list-group-item">Суммарные текущие затраты за период И = {{ result.I_total | money("RUB") }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">Суммарные затраты</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">За первый год K<sub>2</sub> = P + И<sub>г</sub> = {{ result.K2 | money("RUB") }}</li>
+                        <li class="list-group-item">За весь период K = P + И = {{ result.K_total | money("RUB") }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">Экономия</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">П1 (сокращение штата) = {{ result.P1 | money("RUB") }}/год</li>
+                        <li class="list-group-item">П2 (сокращение сроков задач) = {{ result.P2 | money("RUB") }}/год</li>
+                        <li class="list-group-item">П3 (сокращение времени печати) = {{ result.P3 | money("RUB") }}/год</li>
+                        <li class="list-group-item"><strong>Годовая прибыль П = {{ result.P_year | money("RUB") }}/год</strong></li>
+                        <li class="list-group-item">Экономия за период П<sub>0</sub> = {{ result.P0 | money("RUB") }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">Экономический эффект</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Годовой эффект = {{ result.effect_year | money("RUB") }}</li>
+                        <li class="list-group-item">Эффект за период = {{ result.effect_total | money("RUB") }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">Эффективность инвестиций</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Коэффициент эффективности E<sub>к</sub> = {{ result.Ek }}</li>
+                        <li class="list-group-item">Срок окупаемости T = {{ result.T_ok }} лет</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

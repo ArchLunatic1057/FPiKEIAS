@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Модуль 1 - Расчёты{% endblock %}
+{% block content %}
+    <h1>Модуль 1: Показатели экономической эффективности ИАС</h1>
+    <p>Выберите необходимый расчёт:</p>
+    <div class="list-group">
+        <a href="{{ url_for('module1.tables') }}" class="list-group-item list-group-item-action">📊 Таблицы коэффициентов (реновации и приведения)</a>
+        <a href="{{ url_for('module1.calc_eff') }}" class="list-group-item list-group-item-action">💰 Годовой экономический эффект, коэффициент эффективности, срок окупаемости</a>
+        <a href="{{ url_for('module1.calc_economy') }}" class="list-group-item list-group-item-action">📈 Расчёт годовой экономии П (по составляющим)</a>
+        <a href="{{ url_for('module1.calc_total_costs') }}" class="list-group-item list-group-item-action">🧮 Суммарные затраты на создание и внедрение (К)</a>
+        <a href="{{ url_for('module1.calc_period_effect') }}" class="list-group-item list-group-item-action">📅 Экономический эффект за расчётный период</a>
+        <a href="{{ url_for('module1.calc_preprod') }}" class="list-group-item list-group-item-action">⚙️ Предпроизводственные затраты (P_II)</a>
+        <a href="{{ url_for('module1.calc_capital') }}" class="list-group-item list-group-item-action">🏗️ Капитальные затраты (P_K)</a>
+        <a href="{{ url_for('module1.calc_software') }}" class="list-group-item list-group-item-action">💻 Трудоёмкость и длительность разработки ПО</a>
+        <a href="{{ url_for('module1.calc_current') }}" class="list-group-item list-group-item-action">⚡ Текущие затраты на функционирование</a>
+    </div>
+    <!-- Фрагмент module1/index.html с добавленным блоком -->
+    <div class="card mt-4">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">ℹ️ О расчётах модуля</h5>
+        </div>
+        <div class="card-body">
+            <p>Данный модуль позволяет выполнить комплексную оценку экономической эффективности информационно-аналитических систем. Все расчёты основаны на методологии, учитывающей:</p>
+            <ul>
+                <li>Единовременные и текущие затраты на создание и эксплуатацию;</li>
+                <li>Фактор времени (дисконтирование) с использованием коэффициентов приведения;</li>
+                <li>Нормативный коэффициент эффективности капитальных вложений;</li>
+                <li>Реновацию основных фондов.</li>
+            </ul>
+            <p><strong>Интерпретация результатов:</strong></p>
+            <ul>
+                <li><strong>Годовой экономический эффект</strong> – положительное значение говорит о целесообразности внедрения системы.</li>
+                <li><strong>Коэффициент эффективности</strong> должен быть не ниже нормативного (Е<sub>н</sub> = 0.2).</li>
+                <li><strong>Срок окупаемости</strong> показывает время возврата инвестиций.</li>
+                <li><strong>Эффект за расчётный период</strong> – интегральная оценка с учётом разновремённости затрат и результатов.</li>
+            </ul>
+            <p class="text-muted small">Для получения корректных результатов внимательно заполняйте все поля форм. При необходимости обращайтесь к справочным таблицам.</p>
+        </div>
+    </div>
+
+{% endblock %}

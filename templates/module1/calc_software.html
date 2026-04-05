@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Трудоёмкость разработки ПО{% endblock %}
+{% block content %}
+    <h2>Оценка трудоёмкости и длительности разработки ПО</h2>
+    <form method="post" class="col-md-6">
+        <div class="mb-3">
+            <label class="form-label">Объём программы n, тыс. исходных команд</label>
+            <input type="number" step="0.01" name="n" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Рассчитать</button>
+    </form>
+
+    {% if result %}
+        <hr>
+        <h4>Результаты:</h4>
+        {% if result.error %}
+            <div class="alert alert-danger">{{ result.error }}</div>
+        {% else %}
+            <ul class="list-group col-md-4">
+                <li class="list-group-item">Трудоёмкость t = 3.6·n<sup>1.2</sup> = {{ result.t }} чел.-мес.</li>
+                <li class="list-group-item">Длительность T = 2.5·t<sup>0.32</sup> = {{ result.T }} мес.</li>
+                <li class="list-group-item">Производительность Пр = 1000·n / t = {{ result.Pr }} исх. команд/чел.-мес.</li>
+                <li class="list-group-item">Среднее число исполнителей Чп = t / T = {{ result.Ch }} чел.</li>
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endblock %}

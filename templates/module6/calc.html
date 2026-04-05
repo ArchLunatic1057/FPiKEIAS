@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% block title %}Модуль 6 – Расчёт себестоимости ПО{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <h2 class="mb-4">Расчёт себестоимости программного продукта</h2>
+
+    <form method="post" class="mb-5">
+        <!-- Основные параметры -->
+        <div class="card mb-3">
+            <div class="card-header">1. Исходные данные для расчёта трудоёмкости</div>
+            <div class="card-body row">
+                <div class="col-md-3">
+                    <label>Число операторов q</label>
+                    <input type="number" step="any" name="q" class="form-control" value="1086">
+                </div>
+                <div class="col-md-3">
+                    <label>Коэффициент коррекции p</label>
+                    <input type="number" step="any" name="p" class="form-control" value="0.06">
+                </div>
+                <div class="col-md-3">
+                    <label>Язык программирования</label>
+                    <select name="language" class="form-select">
+                        <option value="high" selected>Высокого уровня</option>
+                        <option value="low">Низкого уровня</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Группа сложности</label>
+                    <select name="complexity_group" class="form-select">
+                        <option value="1">1 – алгоритмы оптимизации и моделирования</option>
+                        <option value="2" selected>2 – задачи учёта, отчётности, статистики</option>
+                        <option value="3">3 – стандартные алгоритмы</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Степень новизны</label>
+                    <select name="novelty" class="form-select">
+                        <option value="A" selected>А – принципиально новые задачи</option>
+                        <option value="B">Б – оригинальные программы</option>
+                        <option value="V">В – программы с типовыми решениями</option>
+                        <option value="G">Г – разовая типовая задача</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Опыт программиста</label>
+                    <select name="exp_level" class="form-select">
+                        <option value="до 2 лет" selected>до 2 лет</option>
+                        <option value="2-3 года">2-3 года</option>
+                        <option value="3-5 лет">3-5 лет</option>
+                        <option value="5-7 лет">5-7 лет</option>
+                        <option value="более 7 лет">более 7 лет</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Месячная зарплата, руб.</label>
+                    <input type="number" step="any" name="monthly_salary" class="form-control" value="10850">
+                </div>
+            </div>
+        </div>
+
+        <!-- Параметры оборудования -->
+        <div class="card mb-3">
+            <div class="card-header">2. Параметры оборудования</div>
+            <div class="card-body row">
+                <div class="col-md-3">
+                    <label>Стоимость ПК, руб.</label>
+                    <input type="number" step="any" name="equipment_cost" class="form-control" value="26400">
+                </div>
+                <div class="col-md-3">
+                    <label>Мощность ПК, кВт</label>
+                    <input type="number" step="any" name="power" class="form-control" value="0.45">
+                </div>
+                <div class="col-md-3">
+                    <label>Коэффициент загрузки</label>
+                    <input type="number" step="any" name="load_factor" class="form-control" value="0.8">
+                </div>
+                <div class="col-md-3">
+                    <label>Стоимость э/э, руб/кВт·ч</label>
+                    <input type="number" step="any" name="electric_price" class="form-control" value="6.6">
+                </div>
+            </div>
+        </div>
+
+        <!-- Нормативы -->
+        <div class="card mb-3">
+            <div class="card-header">3. Нормативы</div>
+            <div class="card-body row">
+                <div class="col-md-3">
+                    <label>Дней в месяце</label>
+                    <input type="number" step="any" name="days_per_month" class="form-control" value="21">
+                </div>
+                <div class="col-md-3">
+                    <label>Часов в день</label>
+                    <input type="number" step="any" name="hours_per_day" class="form-control" value="8">
+                </div>
+                <div class="col-md-3">
+                    <label>Номинальных дней в году</label>
+                    <input type="number" step="any" name="nom_days_year" class="form-control" value="258">
+                </div>
+                <div class="col-md-3">
+                    <label>% времени на ремонт</label>
+                    <input type="number" step="any" name="repair_percent" class="form-control" value="2">
+                </div>
+                <div class="col-md-3">
+                    <label>Соц. отчисления, %</label>
+                    <input type="number" step="any" name="social_rate" class="form-control" value="34">
+                </div>
+                <div class="col-md-3">
+                    <label>Накладные расходы, %</label>
+                    <input type="number" step="any" name="overhead_rate" class="form-control" value="50">
+                </div>
+                <div class="col-md-3">
+                    <label>Материалы, % от стоимости ПК</label>
+                    <input type="number" step="any" name="materials_percent" class="form-control" value="1.5">
+                </div>
+                <div class="col-md-3">
+                    <label>Техобслуживание, % от стоимости ПК</label>
+                    <input type="number" step="any" name="maintenance_percent" class="form-control" value="2.5">
+                </div>
+                <div class="col-md-3">
+                    <label>Ликвидационная стоимость, %</label>
+                    <input type="number" step="any" name="liquidation_percent" class="form-control" value="5">
+                </div>
+                <div class="col-md-3">
+                    <label>Срок службы, лет</label>
+                    <input type="number" step="any" name="service_life" class="form-control" value="6">
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg">Выполнить расчёт</button>
+    </form>
+
+    {% if result and result.error %}
+        <div class="alert alert-danger">{{ result.error }}</div>
+    {% elif result and result.Q is defined %}
+        <h3>Результаты расчёта</h3>
+
+        <h4>1. Базовый показатель Q</h4>
+        <p>Q = q × c × (1 + p) = {{ result.q }} × {{ result.c }} × (1 + {{ result.p }}) = {{ result.Q }}</p>
+
+        <h4>2. Составляющие трудоёмкости (чел.-час)</h4>
+        <ul>
+            <li>Подготовка и описание задачи t<sub>пп</sub> = {{ result.t_pp }}</li>
+            <li>Исследование алгоритма t<sub>u</sub> = {{ result.t_u }}</li>
+            <li>Разработка блок-схем t<sub>a</sub> = {{ result.t_a }}</li>
+            <li>Программирование t<sub>n</sub> = {{ result.t_n }}</li>
+            <li>Отладка t<sub>o</sub> = {{ result.t_o }}</li>
+            <li>Подготовка документации t<sub>д</sub> = {{ result.t_d }}</li>
+            <li><strong>Суммарные затраты труда t<sub>z</sub> = {{ result.t_z }}</strong></li>
+        </ul>
+
+        <h4>3. Заработная плата разработчиков</h4>
+        <ul>
+            <li>Основная зарплата = {{ result.base_salary | money("RUB") }}</li>
+            <li>Дополнительная зарплата (20 %) = {{ result.add_salary | money("RUB") }}</li>
+            <li>Фонд заработной платы (ФЗП) = {{ result.fzp | money("RUB") }}</li>
+        </ul>
+
+        <h4>4. Социальные отчисления и накладные расходы</h4>
+        <ul>
+            <li>Социальные отчисления (34 %) = {{ result.social | money("RUB") }}</li>
+            <li>Накладные расходы (50 % от ФЗП) = {{ result.overhead | money("RUB") }}</li>
+        </ul>
+
+        <h4>5. Эксплуатационные затраты (годовые)</h4>
+        <ul>
+            <li>Амортизация (годовая) = {{ result.amort_annual | money("RUB") }}</li>
+            <li>Техобслуживание (годовое) = {{ result.maintenance | money("RUB") }}</li>
+            <li>Электроэнергия (годовая) = {{ result.electricity_annual | money("RUB") }}</li>
+            <li>Время работы на ПК (этапы n+o+д) = {{ result.t_comp }} час</li>
+            <li>Эффективный фонд времени = {{ result.eff_fund }} час</li>
+            <li>Временной коэффициент w = {{ result.w }}</li>
+        </ul>
+        <ul>
+            <li>Скорректированные затраты на электроэнергию = {{ result.electricity_adj | money("RUB") }}</li>
+            <li>Скорректированные затраты на техобслуживание = {{ result.maintenance_adj | money("RUB") }}</li>
+            <li>Скорректированные амортизационные отчисления = {{ result.amort_adj | money("RUB") }}</li>
+            <li><strong>Итого эксплуатационные затраты по проекту = {{ result.total_operating | money("RUB") }}</strong></li>
+        </ul>
+
+        <h4>6. Затраты на материалы и комплектующие</h4>
+        <p>Материалы и комплектующие (1,5 % от стоимости ПК) = {{ result.materials | money("RUB") }}</p>
+
+        <h4>Таблица 4 – Результирующая таблица себестоимости</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr><th colspan="2">Статья расходов</th><th>Сумма, руб.</th><th>Структура затрат, %</th></tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="2"><strong>ФЗП</strong></td><td>{{ result.fzp | money("RUB") }}</td><td>{{ "%.2f"|format(result.fzp / result.total_cost * 100) }}</td></tr>
+                <tr><td>&nbsp;&nbsp;З<sub>осн</sub></td><td></td><td>{{ result.base_salary | money("RUB") }}</td><td></td></tr>
+                <tr><td>&nbsp;&nbsp;З<sub>доп</sub></td><td></td><td>{{ result.add_salary | money("RUB") }}</td><td></td></tr>
+                <tr><td colspan="2">Накладные расходы</td><td>{{ result.overhead | money("RUB") }}</td><td>{{ "%.2f"|format(result.overhead / result.total_cost * 100) }}</td></tr>
+                <tr><td colspan="2">Социальное страхование</td><td>{{ result.social | money("RUB") }}</td><td>{{ "%.2f"|format(result.social / result.total_cost * 100) }}</td></tr>
+                <tr><td colspan="2"><strong>Эксплуатационные затраты</strong></td><td>{{ result.total_operating | money("RUB") }}</td><td>{{ "%.2f"|format(result.total_operating / result.total_cost * 100) }}</td></tr>
+                <tr><td>&nbsp;&nbsp;З<sub>экспл</sub></td><td></td><td>{{ result.total_operating | money("RUB") }}</td><td></td></tr>
+                <tr><td>&nbsp;&nbsp;З<sub>то</sub></td><td></td><td>{{ result.maintenance_adj | money("RUB") }}</td><td></td></tr>
+                <tr><td>&nbsp;&nbsp;А<sub>год</sub></td><td></td><td>{{ result.amort_adj | money("RUB") }}</td><td></td></tr>
+                <tr><td colspan="2">Материалы и комплектующие</td><td>{{ result.materials | money("RUB") }}</td><td>{{ "%.2f"|format(result.materials / result.total_cost * 100) }}</td></tr>
+                <tr style="font-weight:bold"><td colspan="2">Итого:</td><td>{{ result.total_cost | money("RUB") }}</td><td>100</td></tr>
+            </tbody>
+         </table>
+    {% endif %}
+</div>
+{% endblock %}

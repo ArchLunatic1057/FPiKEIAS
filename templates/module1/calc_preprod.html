@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Предпроизводственные затраты{% endblock %}
+{% block content %}
+    <h2>Расчёт предпроизводственных затрат</h2>
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Метод расчёта:</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="preprod_method" id="method_comp" value="components" checked>
+                <label class="form-check-label" for="method_comp">По составляющим</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="preprod_method" id="method_labor" value="labor">
+                <label class="form-check-label" for="method_labor">Через трудоёмкость (сметная стоимость)</label>
+            </div>
+        </div>
+
+        <div id="comp_inputs">
+            <div class="mb-3">
+                <label class="form-label">Затраты на проектирование (П<sub>ИП</sub>), руб.</label>
+                <input type="number" step="any" name="p_ip" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Затраты на программирование (П<sub>ПО</sub>), руб.</label>
+                <input type="number" step="any" name="p_po" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Затраты на подготовку информационного обеспечения (П<sub>ИО</sub>), руб.</label>
+                <input type="number" step="any" name="p_io" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Затраты на отладку и ввод (П<sub>ВВ</sub>), руб.</label>
+                <input type="number" step="any" name="p_bb" class="form-control">
+            </div>
+        </div>
+
+        <div id="labor_inputs" style="display: none;">
+            <div class="mb-3">
+                <label class="form-label">Приведённая трудоёмкость t<sub>пр</sub>, чел.-дн.</label>
+                <input type="number" step="any" name="t_pr" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Стоимость 1 чел.-дн. (С<sub>д</sub>), руб.</label>
+                <input type="number" step="any" name="c_d" class="form-control">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Рассчитать</button>
+    </form>
+
+    <script>
+        document.querySelectorAll('input[name="preprod_method"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'components') {
+                    document.getElementById('comp_inputs').style.display = 'block';
+                    document.getElementById('labor_inputs').style.display = 'none';
+                } else {
+                    document.getElementById('comp_inputs').style.display = 'none';
+                    document.getElementById('labor_inputs').style.display = 'block';
+                }
+            });
+        });
+    </script>
+
+    {% if result %}
+        <hr>
+        <h4>Результат:</h4>
+        {% if result.error %}
+            <div class="alert alert-danger">{{ result.error }}</div>
+        {% else %}
+            <div class="alert alert-success">Предпроизводственные затраты П<sub>ИИ</sub> = {{ result.P_ii }} руб.</div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

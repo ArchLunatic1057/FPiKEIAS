@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% block title %}Главная - Система расчётов ИАС{% endblock %}
+{% block content %}
+    <div class="text-center mb-5">
+        <h1 class="display-4">Система автоматизированных расчётов</h1>
+        <p class="lead">Практические работы по курсу «Информационно-аналитические системы»</p>
+        <hr class="my-4">
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <!-- Модуль 1 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Модуль 1</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Оценка экономической эффективности ИАС</h6>
+                    <p class="card-text">Расчёт основных показателей:</p>
+                    <ul class="list-unstyled">
+                        <li>✓ Годовой экономический эффект</li>
+                        <li>✓ Коэффициент эффективности и срок окупаемости</li>
+                        <li>✓ Составляющие годовой экономии</li>
+                        <li>✓ Суммарные затраты на создание и внедрение</li>
+                        <li>✓ Эффект за расчётный период</li>
+                        <li>✓ Предпроизводственные и капитальные затраты</li>
+                        <li>✓ Трудоёмкость и длительность разработки ПО</li>
+                        <li>✓ Текущие затраты на функционирование</li>
+                    </ul>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-end">
+                    <a href="{{ url_for('module1.index') }}" class="btn btn-sm btn-outline-primary">Перейти к расчётам →</a>
+                </div>
+            </div>
+        </div>
+        <!-- Модуль 2 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Модуль 2</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Оценка экономической эффективности АРМ</h6>
+                    <p class="card-text">Расчёт ключевых показателей:</p>
+                    <ul class="list-unstyled">
+                        <li>✓ Единовременные затраты на разработку</li>
+                        <li>✓ Текущие затраты на эксплуатацию</li>
+                        <li>✓ Экономия от автоматизации (сокращение штата, сроков задач, печати)</li>
+                        <li>✓ Годовой и интегральный экономический эффект</li>
+                        <li>✓ Коэффициент эффективности и срок окупаемости</li>
+                    </ul>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-end">
+                    <a href="{{ url_for('module2.index') }}" class="btn btn-sm btn-outline-primary">Перейти к расчётам →</a>
+                </div>
+            </div>
+        </div>
+        <!-- Модуль 3 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Модуль 3</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Обоснование применения интегрированных ИАС</h6>
+                    <p class="card-text">Расчёт ключевых показателей:</p>
+                    <ul class="list-unstyled">
+                        <li>✓ Затраты на оплату труда, эксплуатационные и единовременные затраты</li>
+                        <li>✓ Критическое число проектных решений (граница эффективности)</li>
+                        <li>✓ Годовая экономия и экономический эффект</li>
+                        <li>✓ Период окупаемости дополнительных капиталовложений</li>
+                    </ul>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-end">
+                    <a href="{{ url_for('module3.index') }}" class="btn btn-sm btn-outline-primary">Перейти к расчётам →</a>
+                </div>
+            </div>
+        </div>
+        <!-- Модуль 4 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Модуль 4</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Расчёт годового экономического эффекта от внедрения ИАС</h6>
+                    <p class="card-text">Показатели:</p>
+                    <ul class="list-unstyled">
+                        <li>✓ Снижение трудоёмкости проектирования</li>
+                        <li>✓ Высвобождение численности технологов</li>
+                        <li>✓ Эксплуатационные расходы (зарплата, амортизация, энергия)</li>
+                        <li>✓ Снижение себестоимости проектирования</li>
+                        <li>✓ Экономия от сокращения цикла ТПП</li>
+                        <li>✓ Годовой экономический эффект и срок окупаемости</li>
+                    </ul>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-end">
+                    <a href="{{ url_for('module4.index') }}" class="btn btn-sm btn-outline-primary">Перейти к расчётам →</a>
+                </div>
+            </div>
+        </div>
+        <!-- Модуль 5 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Модуль 5</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Калькуляция себестоимости разработки ПО</h6>
+                    <p class="card-text">Расчёт по статьям:</p>
+                    <ul class="list-unstyled">
+                        <li>✓ Прямые материальные затраты</li>
+                        <li>✓ Прямые затраты на труд (основная, дополнительная зарплата, отчисления)</li>
+                        <li>✓ Затраты на содержание и эксплуатацию ПЭВМ</li>
+                        <li>✓ Накладные расходы (с коэффициентом переноса)</li>
+                        <li>✓ Полная себестоимость разработки</li>
+                    </ul>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-end">
+                    <a href="{{ url_for('module5.index') }}" class="btn btn-sm btn-outline-primary">Перейти к расчётам →</a>
+                </div>
+            </div>
+        </div>
+        <!-- Модуль 6 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Модуль 6</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Расчёт себестоимости программного продукта</h6>
+                    <p class="card-text">Комплексный расчёт:</p>
+                    <ul class="list-unstyled">
+                        <li>✓ Базовый показатель Q</li>
+                        <li>✓ Трудоёмкость этапов разработки (t<sub>пп</sub>, t<sub>u</sub>, t<sub>a</sub>, t<sub>n</sub>, t<sub>o</sub>, t<sub>д</sub>)</li>
+                        <li>✓ Основная и дополнительная зарплата, ФЗП</li>
+                        <li>✓ Социальные отчисления и накладные расходы</li>
+                        <li>✓ Эксплуатационные затраты (энергия, амортизация, ремонт)</li>
+                        <li>✓ Итоговая таблица себестоимости</li>
+                    </ul>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-end">
+                    <a href="{{ url_for('module6.index') }}" class="btn btn-sm btn-outline-primary">Перейти к расчётам →</a>
+                </div>
+            </div>
+        </div>
+        <!-- Модуль 7 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Модуль 7</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Система сбалансированных показателей</h6>
+                    <p class="card-text">Сравнительный анализ программных продуктов:</p>
+                    <ul class="list-unstyled">
+                        <li>✓ Cognos Metrics Manager</li>
+                        <li>✓ IBM WebSphere Business Modeler</li>
+                        <li>✓ ARIS BSC</li>
+                        <li>✓ Расчёт стоимости лицензий и поддержки</li>
+                        <li>✓ Рекомендации по выбору</li>
+                    </ul>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-end">
+                    <a href="{{ url_for('module7.index') }}" class="btn btn-sm btn-outline-primary">Перейти к расчётам →</a>
+                </div>
+            </div>
+        </div>
+        <!-- Модуль 8 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Модуль 8</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Сравнение SAP, Oracle, Hyperion, Business Studio</h6>
+                    <p class="card-text">Сравнительный анализ программных продуктов для ССП:</p>
+                    <ul class="list-unstyled">
+                        <li>✓ SAP Strategic Enterprise Management (SEM-CPM)</li>
+                        <li>✓ Oracle Balanced Scorecard</li>
+                        <li>✓ Hyperion Performance Scorecard</li>
+                        <li>✓ Business Studio</li>
+                        <li>✓ Расчёт стоимости лицензий и поддержки</li>
+                        <li>✓ Функциональные возможности</li>
+                    </ul>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-end">
+                    <a href="{{ url_for('module8.index') }}" class="btn btn-sm btn-outline-primary">Перейти к расчётам →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

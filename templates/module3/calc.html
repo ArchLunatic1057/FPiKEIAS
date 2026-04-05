@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+{% block title %}Модуль 3 – Таблица 2{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <h2 class="mb-4">Предварительное экономическое обоснование</h2>
+    <form method="post" class="mb-5">
+        <!-- Общие параметры -->
+        <div class="card mb-3">
+            <div class="card-header">Общие параметры</div>
+            <div class="card-body row">
+                <div class="col-md-3"><label>Плановое число решений N<sub>пл</sub>, шт./год</label><input type="number" step="any" name="N_plan" class="form-control" value="50"></div>
+                <div class="col-md-3"><label>Норматив эффективности E<sub>н</sub></label><input type="number" step="0.01" name="En" class="form-control" value="0.2"></div>
+                <div class="col-md-3"><label>Коэффициент премий k<sub>1</sub></label><input type="number" step="0.01" name="k1" class="form-control" value="1.3"></div>
+                <div class="col-md-3"><label>Коэффициент доп. зарплаты k<sub>2</sub></label><input type="number" step="0.01" name="k2" class="form-control" value="1.12"></div>
+                <div class="col-md-3"><label>Коэффициент соц. начислений k<sub>3</sub></label><input type="number" step="0.01" name="k3" class="form-control" value="1.34"></div>
+                <div class="col-md-3"><label>Накладные расходы k<sub>4</sub></label><input type="number" step="0.01" name="k4" class="form-control" value="1.6"></div>
+                <div class="col-md-3"><label>Норма амортизации H<sub>а</sub>, %</label><input type="number" step="any" name="ha" class="form-control" value="20"></div>
+                <div class="col-md-3"><label>Доля на обслуживание H<sub>тр</sub>, %</label><input type="number" step="any" name="htr" class="form-control" value="5"></div>
+                <div class="col-md-3"><label>Стоимость э/э, руб/кВт·ч</label><input type="number" step="any" name="en_electric" class="form-control" value="6.0"></div>
+                <div class="col-md-3"><label>Коэфф. загрузки (баз.) k<sub>з</sub></label><input type="number" step="any" name="kz_bas" class="form-control" value="1.0"></div>
+                <div class="col-md-3"><label>Коэфф. загрузки (проект.) k<sub>з</sub></label><input type="number" step="any" name="kz_proj" class="form-control" value="1.0"></div>
+                <div class="col-md-3"><label>Экономия от повышения качества Э<sub>к</sub>, руб.</label><input type="number" step="any" name="Ek" class="form-control" value="0"></div>
+                <div class="col-md-3"><label>Сопутствующий эффект Э<sub>соп</sub>, руб.</label><input type="number" step="any" name="Esop" class="form-control" value="0"></div>
+                <div class="col-md-3"><label>Годовой выпуск N<sub>вып</sub>, шт.</label><input type="number" step="any" name="N_vyear" class="form-control" value="100"></div>
+            </div>
+        </div>
+
+        <!-- Базовый вариант -->
+        <div class="card mb-3">
+            <div class="card-header">Базовый вариант</div>
+            <div class="card-body">
+                <h6>Специалисты</h6>
+                <div class="row">
+                    <div class="col-md-4"><label>Конструкторы: численность</label><input type="number" name="bas_designers_count" class="form-control" value="2"></div>
+                    <div class="col-md-4"><label>Трудоёмкость, чел.-ч</label><input type="number" name="bas_designers_labor" class="form-control" value="20"></div>
+                    <div class="col-md-4"><label>Оклад, руб./мес.</label><input type="number" name="bas_designers_salary" class="form-control" value="30000"></div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4"><label>Технологи: численность</label><input type="number" name="bas_technologists_count" class="form-control" value="1"></div>
+                    <div class="col-md-4"><label>Трудоёмкость, чел.-ч</label><input type="number" name="bas_technologists_labor" class="form-control" value="15"></div>
+                    <div class="col-md-4"><label>Оклад, руб./мес.</label><input type="number" name="bas_technologists_salary" class="form-control" value="28000"></div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4"><label>Прочие: численность</label><input type="number" name="bas_other_count" class="form-control" value="0"></div>
+                    <div class="col-md-4"><label>Трудоёмкость, чел.-ч</label><input type="number" name="bas_other_labor" class="form-control" value="0"></div>
+                    <div class="col-md-4"><label>Оклад, руб./мес.</label><input type="number" name="bas_other_salary" class="form-control" value="0"></div>
+                </div>
+
+                <h6 class="mt-3">Технические средства (до 5)</h6>
+                {% for i in range(1,6) %}
+                <div class="row mt-1">
+                    <div class="col-md-3"><input type="text" name="bas_tech_{{ i }}_name" class="form-control" placeholder="Наименование" value=""></div>
+                    <div class="col-md-3"><input type="number" step="any" name="bas_tech_{{ i }}_power" class="form-control" placeholder="Мощность, кВт" value=""></div>
+                    <div class="col-md-3"><input type="number" step="any" name="bas_tech_{{ i }}_cost" class="form-control" placeholder="Стоимость, руб." value=""></div>
+                    <div class="col-md-3"><input type="number" step="any" name="bas_tech_{{ i }}_eta" class="form-control" placeholder="Коэфф. загрузки η" value=""></div>
+                </div>
+                {% endfor %}
+
+                <div class="row mt-3">
+                    <div class="col-md-6"><label>Эксплуатационные расходы W (если нет техники), руб./год</label><input type="number" step="any" name="bas_W" class="form-control" value="0"></div>
+                    <div class="col-md-6"><label>Единовременные затраты К<sub>ео</sub> (если не рассчитывать по составляющим), руб.</label><input type="number" step="any" name="bas_Keo" class="form-control" value="0"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Проектный вариант -->
+        <div class="card mb-3">
+            <div class="card-header">Проектный вариант</div>
+            <div class="card-body">
+                <h6>Специалисты</h6>
+                <div class="row">
+                    <div class="col-md-4"><label>Конструкторы: численность</label><input type="number" name="proj_designers_count" class="form-control" value="1"></div>
+                    <div class="col-md-4"><label>Трудоёмкость, чел.-ч</label><input type="number" name="proj_designers_labor" class="form-control" value="8"></div>
+                    <div class="col-md-4"><label>Оклад, руб./мес.</label><input type="number" name="proj_designers_salary" class="form-control" value="30000"></div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4"><label>Технологи: численность</label><input type="number" name="proj_technologists_count" class="form-control" value="1"></div>
+                    <div class="col-md-4"><label>Трудоёмкость, чел.-ч</label><input type="number" name="proj_technologists_labor" class="form-control" value="6"></div>
+                    <div class="col-md-4"><label>Оклад, руб./мес.</label><input type="number" name="proj_technologists_salary" class="form-control" value="28000"></div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4"><label>Прочие: численность</label><input type="number" name="proj_other_count" class="form-control" value="0"></div>
+                    <div class="col-md-4"><label>Трудоёмкость, чел.-ч</label><input type="number" name="proj_other_labor" class="form-control" value="0"></div>
+                    <div class="col-md-4"><label>Оклад, руб./мес.</label><input type="number" name="proj_other_salary" class="form-control" value="0"></div>
+                </div>
+
+                <h6 class="mt-3">Технические средства (до 5)</h6>
+                <div class="row mt-1">
+                    <div class="col-md-3"><input type="text" name="proj_tech_1_name" class="form-control" placeholder="Наименование" value="Системный блок"></div>
+                    <div class="col-md-3"><input type="number" step="any" name="proj_tech_1_power" class="form-control" placeholder="Мощность, кВт" value="0.5"></div>
+                    <div class="col-md-3"><input type="number" step="any" name="proj_tech_1_cost" class="form-control" placeholder="Стоимость, руб." value="40000"></div>
+                    <div class="col-md-3"><input type="number" step="any" name="proj_tech_1_eta" class="form-control" placeholder="Коэфф. загрузки η" value="0.9"></div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-md-3"><input type="text" name="proj_tech_2_name" class="form-control" placeholder="Наименование" value="Монитор"></div>
+                    <div class="col-md-3"><input type="number" step="any" name="proj_tech_2_power" class="form-control" placeholder="Мощность, кВт" value="0.2"></div>
+                    <div class="col-md-3"><input type="number" step="any" name="proj_tech_2_cost" class="form-control" placeholder="Стоимость, руб." value="15000"></div>
+                    <div class="col-md-3"><input type="number" step="any" name="proj_tech_2_eta" class="form-control" placeholder="Коэфф. загрузки η" value="0.9"></div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-md-3"><input type="text" name="proj_tech_3_name" class="form-control" placeholder="Наименование" value="Принтер"></div>
+                    <div class="col-md-3"><input type="number" step="any" name="proj_tech_3_power" class="form-control" placeholder="Мощность, кВт" value="0.3"></div>
+                    <div class="col-md-3"><input type="number" step="any" name="proj_tech_3_cost" class="form-control" placeholder="Стоимость, руб." value="8000"></div>
+                    <div class="col-md-3"><input type="number" step="any" name="proj_tech_3_eta" class="form-control" placeholder="Коэфф. загрузки η" value="0.35"></div>
+                </div>
+                {% for i in range(4,6) %}
+                <div class="row mt-1">
+                    <div class="col-md-3"><input type="text" name="proj_tech_{{ i }}_name" class="form-control" placeholder="Наименование" value=""></div>
+                    <div class="col-md-3"><input type="number" step="any" name="proj_tech_{{ i }}_power" class="form-control" placeholder="Мощность, кВт" value=""></div>
+                    <div class="col-md-3"><input type="number" step="any" name="proj_tech_{{ i }}_cost" class="form-control" placeholder="Стоимость, руб." value=""></div>
+                    <div class="col-md-3"><input type="number" step="any" name="proj_tech_{{ i }}_eta" class="form-control" placeholder="Коэфф. загрузки η" value=""></div>
+                </div>
+                {% endfor %}
+
+                <div class="row mt-3">
+                    <div class="col-md-6"><label>Эксплуатационные расходы W (если нет техники), руб./год</label><input type="number" step="any" name="proj_W" class="form-control" value="0"></div>
+                    <div class="col-md-6"><label>Единовременные затраты К<sub>ео</sub> (если не рассчитывать по составляющим), руб.</label><input type="number" step="any" name="proj_Keo" class="form-control" value="0"></div>
+                </div>
+
+                <h6 class="mt-3">Составляющие единовременных затрат (проектный вариант)</h6>
+                <div class="row">
+                    <div class="col-md-3"><label>Лингвистическое обеспечение</label><input type="number" step="any" name="ling_cost" class="form-control" value="0"></div>
+                    <div class="col-md-3"><label>Лицензионное ПО</label><input type="number" step="any" name="license_cost" class="form-control" value="50000"></div>
+                    <div class="col-md-3"><label>Трудоёмкость разработки ПО, чел.-ч</label><input type="number" step="any" name="dev_t" class="form-control" value="0"></div>
+                    <div class="col-md-3"><label>Число разработчиков</label><input type="number" name="dev_r" class="form-control" value="0"></div>
+                    <div class="col-md-3"><label>Средний оклад разработчика, руб./мес.</label><input type="number" step="any" name="dev_salary" class="form-control" value="0"></div>
+                    <div class="col-md-3"><label>Информационное обеспечение</label><input type="number" step="any" name="info_cost" class="form-control" value="0"></div>
+                    <div class="col-md-3"><label>Методическое обеспечение</label><input type="number" step="any" name="method_cost" class="form-control" value="0"></div>
+                    <div class="col-md-3"><label>Прочие, %</label><input type="number" step="any" name="other_percent" class="form-control" value="10"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Показатели качества -->
+        <div class="card mb-3">
+            <div class="card-header">Показатели качества</div>
+            <div class="card-body">
+                <h6>Снижение расхода ресурсов на изготовление (ΔP<sub>j</sub>)</h6>
+                <div class="row mt-1">
+                    <div class="col-md-4"><input type="text" name="dp_name_1" class="form-control" placeholder="Наименование ресурса" value="Материалы"></div>
+                    <div class="col-md-4"><input type="number" step="any" name="dp_delta_1" class="form-control" placeholder="ΔP, ед." value="100"></div>
+                    <div class="col-md-4"><input type="number" step="any" name="dp_price_1" class="form-control" placeholder="Цена, руб." value="500"></div>
+                </div>
+                {% for i in range(2,6) %}
+                <div class="row mt-1">
+                    <div class="col-md-4"><input type="text" name="dp_name_{{ i }}" class="form-control" placeholder="Наименование ресурса" value=""></div>
+                    <div class="col-md-4"><input type="number" step="any" name="dp_delta_{{ i }}" class="form-control" placeholder="ΔP, ед." value=""></div>
+                    <div class="col-md-4"><input type="number" step="any" name="dp_price_{{ i }}" class="form-control" placeholder="Цена, руб." value=""></div>
+                </div>
+                {% endfor %}
+
+                <h6 class="mt-3">Снижение эксплуатационных расходов (ΔИЭ<sub>j</sub>)</h6>
+                <div class="row mt-1">
+                    <div class="col-md-4"><input type="text" name="di_name_1" class="form-control" placeholder="Наименование" value="Электроэнергия"></div>
+                    <div class="col-md-4"><input type="number" step="any" name="di_delta_1" class="form-control" placeholder="ΔИЭ, ед." value="150"></div>
+                    <div class="col-md-4"><input type="number" step="any" name="di_price_1" class="form-control" placeholder="Цена, руб." value="6"></div>
+                </div>
+                {% for i in range(2,6) %}
+                <div class="row mt-1">
+                    <div class="col-md-4"><input type="text" name="di_name_{{ i }}" class="form-control" placeholder="Наименование" value=""></div>
+                    <div class="col-md-4"><input type="number" step="any" name="di_delta_{{ i }}" class="form-control" placeholder="ΔИЭ, ед." value=""></div>
+                    <div class="col-md-4"><input type="number" step="any" name="di_price_{{ i }}" class="form-control" placeholder="Цена, руб." value=""></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg">Выполнить расчёт</button>
+    </form>
+
+    {% if result and result.error %}
+        <div class="alert alert-danger">{{ result.error }}</div>
+    {% elif result and result.bas %}
+        <h3>Таблица организационно-экономических показателей сравниваемых вариантов</h3>
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>№</th>
+                    <th>Наименование показателя</th>
+                    <th>Ед.измерения</th>
+                    <th>Вариант базовый</th>
+                    <th>Вариант проектный</th>
+                    <th>Проектные показатели в % к базовым</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Плановое число решений задачи</td><td>шт./год</td><td>{{ result.N_plan }}</td><td>{{ result.N_plan }}</td><td>-</td></tr>
+                <tr>
+                    <td>2</td>
+                    <td>Трудовые затраты на получение проектного решения всего, в том числе:<br> - конструкторов<br> - технологов<br> - прочих</td>
+                    <td>чел.-ч</td>
+                    <td>{{ result.bas.labor }}</td>
+                    <td>{{ result.proj.labor }}</td>
+                    <td>{{ result.percent.labor }}%</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Численность специалистов, привлекаемых к решению задачи всего, в том числе:<br> - конструкторов<br> - технологов<br> - прочих</td>
+                    <td>чел.</td>
+                    <td>{{ result.bas.count }}</td>
+                    <td>{{ result.proj.count }}</td>
+                    <td>{{ result.percent.count }}%</td>
+                </tr>
+                <tr><td>4</td><td>Текущие затраты на получение проектного решения</td><td>руб.</td><td>{{ "%.2f"|format(result.bas.current) }}</td><td>{{ "%.2f"|format(result.proj.current) }}</td><td>{{ result.percent.current }}%</td></tr>
+                <tr><td>5</td><td>Единовременные затраты на получение проектного решения</td><td>руб.</td><td>{{ "%.2f"|format(result.bas.keo) }}</td><td>{{ "%.2f"|format(result.proj.keo) }}</td><td>{{ result.percent.keo }}%</td></tr>
+                <tr><td>6</td><td>Приведенные затраты</td><td>руб.</td><td>{{ "%.2f"|format(result.bas.pz) }}</td><td>{{ "%.2f"|format(result.proj.pz) }}</td><td>{{ result.percent.pz }}%</td></tr>
+                <tr><td>7</td><td>Критическое число проектных решений</td><td>шт.</td><td colspan="2">{{ result.n_crit }}</td><td>-</td></tr>
+                <tr><td>8</td><td>Годовой экономический эффект</td><td>руб.</td><td colspan="2">{{ "%.2f"|format(result.e_god) }}</td><td>-</td></tr>
+                <tr><td>9</td><td>Период окупаемости дополнительных единовременных затрат</td><td>лет</td><td colspan="2">{{ result.t_ok }}</td><td>-</td></tr>
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}

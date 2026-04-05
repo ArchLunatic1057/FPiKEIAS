@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Модуль 7 – Сравнение программных продуктов для ССП{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Модуль 7: Реализация методики системы сбалансированных показателей в программном обеспечении</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Сравнительный анализ стоимости лицензий</h5>
+                    <p class="card-text">Выберите количество рабочих мест и версию IBM WebSphere Business Modeler, чтобы получить полную стоимость лицензий для трёх ведущих систем поддержки ССП.</p>
+                    <a href="{{ url_for('module7.calc') }}" class="btn btn-primary">Перейти к расчёту →</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Справочная информация</h5>
+                    <p class="card-text">Расчёт основан на стоимости лицензий и технической поддержки для Cognos Metrics Manager, IBM WebSphere Business Modeler, ARIS BSC.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

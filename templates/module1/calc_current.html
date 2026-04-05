@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Текущие затраты на функционирование{% endblock %}
+{% block content %}
+    <h2>Расчёт годовых текущих затрат на функционирование ИАС</h2>
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Метод расчёта:</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="current_method" id="method_first" value="first" checked>
+                <label class="form-check-label" for="method_first">Первый метод (через составляющие)</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="current_method" id="method_second" value="second">
+                <label class="form-check-label" for="method_second">Второй метод (сумма затрат по задачам)</label>
+            </div>
+        </div>
+
+        <div id="first_inputs">
+            <div class="mb-3">
+                <label class="form-label">Годовые затраты на эксплуатацию КТС (И<sub>ктс</sub>), руб./год</label>
+                <input type="number" step="any" name="i_kts" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Затраты на поддержание и актуализацию ПО (И<sub>сон</sub>), руб./год</label>
+                <input type="number" step="any" name="i_son" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Затраты на содержание и ремонт помещений (И<sub>н</sub>), руб./год</label>
+                <input type="number" step="any" name="i_n" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Зарплата группы эксплуатации с начислениями (И<sub>з</sub>), руб./год</label>
+                <input type="number" step="any" name="i_z_eks" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Зарплата специалистов с начислениями (И<sub>з</sub>), руб./год</label>
+                <input type="number" step="any" name="i_z_spec" class="form-control">
+            </div>
+        </div>
+
+        <div id="second_inputs" style="display: none;">
+            <div class="mb-3">
+                <label class="form-label">Количество решаемых задач (n)</label>
+                <input type="number" name="n_tasks" id="n_tasks" class="form-control" min="1" value="1">
+            </div>
+            <div id="tasks-container">
+                <div class="mb-2">
+                    <label class="form-label">Затраты на задачу 1, руб./год</label>
+                    <input type="number" step="any" name="task_0" class="form-control">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Общесистемные затраты за год (И<sub>сист</sub>), руб./год</label>
+                <input type="number" step="any" name="i_sist" class="form-control">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Рассчитать</button>
+    </form>
+
+    <script>
+        document.querySelectorAll('input[name="current_method"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'first') {
+                    document.getElementById('first_inputs').style.display = 'block';
+                    document.getElementById('second_inputs').style.display = 'none';
+                } else {
+                    document.getElementById('first_inputs').style.display = 'none';
+                    document.getElementById('second_inputs').style.display = 'block';
+                }
+            });
+        });
+
+        document.getElementById('n_tasks').addEventListener('input', function() {
+            const n = parseInt(this.value) || 1;
+            const container = document.getElementById('tasks-container');
+            container.innerHTML = '';
+            for (let i = 0; i < n; i++) {
+                const div = document.createElement('div');
+                div.className = 'mb-2';
+                div.innerHTML = `<label class="form-label">Затраты на задачу ${i+1}, руб./год</label><input type="number" step="any" name="task_${i}" class="form-control">`;
+                container.appendChild(div);
+            }
+        });
+    </script>
+
+    {% if result %}
+        <hr>
+        <h4>Результат:</h4>
+        {% if result.error %}
+            <div class="alert alert-danger">{{ result.error }}</div>
+        {% else %}
+            <div class="alert alert-success">Годовые текущие затраты И<sub>г</sub> = {{ result.I_g }} руб./год ({{ result.method }})</div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

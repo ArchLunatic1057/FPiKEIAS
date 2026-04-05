@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% block title %}Модуль 4 – Расчёт годового эффекта от внедрения ИАС{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <h2 class="mb-4">Расчёт годового экономического эффекта от внедрения ИАС</h2>
+    <form method="post" class="mb-5">
+        <!-- Основные параметры -->
+        <div class="card mb-3">
+            <div class="card-header">1. Исходные данные</div>
+            <div class="card-body row">
+                <div class="col-md-3"><label>Количество ТП в год H</label><input type="number" step="any" name="H" class="form-control" value="200"></div>
+                <div class="col-md-3"><label>Трудоёмкость базового варианта T<sub>баз</sub>, час</label><input type="number" step="any" name="T_base" class="form-control" value="26.38"></div>
+                <div class="col-md-3"><label>Трудоёмкость с ИАС T<sub>ИАС</sub>, час</label><input type="number" step="any" name="T_ias" class="form-control" value="5.38"></div>
+                <div class="col-md-3"><label>Годовой фонд полезного времени Ф<sub>пв</sub>, час</label><input type="number" step="any" name="Fpv" class="form-control" value="1020"></div>
+                <div class="col-md-3"><label>Коэффициент выполнения норм K<sub>вн</sub></label><input type="number" step="any" name="Kvn" class="form-control" value="1.2"></div>
+                <div class="col-md-3"><label>Среднечасовая зарплата C<sub>ч</sub>, руб/час</label><input type="number" step="any" name="C_hour" class="form-control" value="60"></div>
+            </div>
+        </div>
+
+        <!-- Коэффициенты оплаты труда -->
+        <div class="card mb-3">
+            <div class="card-header">2. Коэффициенты оплаты труда</div>
+            <div class="card-body row">
+                <div class="col-md-2"><label>K<sub>п</sub> (премии)</label><input type="number" step="any" name="Kp" class="form-control" value="1.7"></div>
+                <div class="col-md-2"><label>K<sub>р</sub> (районный)</label><input type="number" step="any" name="Kr" class="form-control" value="1.0"></div>
+                <div class="col-md-2"><label>K<sub>д</sub> (доп. зарплата)</label><input type="number" step="any" name="Kd" class="form-control" value="1.08"></div>
+                <div class="col-md-2"><label>K<sub>с</sub> (соц. отчисления)</label><input type="number" step="any" name="Ks" class="form-control" value="1.34"></div>
+                <div class="col-md-2"><label>K<sub>н</sub> (накладные)</label><input type="number" step="any" name="Kn" class="form-control" value="1.6"></div>
+            </div>
+        </div>
+
+        <!-- Эксплуатационные расходы -->
+        <div class="card mb-3">
+            <div class="card-header">3. Эксплуатационные расходы</div>
+            <div class="card-body row">
+                <div class="col-md-3"><label>Среднемесячная зарплата З<sub>ср</sub>, руб</label><input type="number" step="any" name="Zsr" class="form-control" value="10000"></div>
+                <div class="col-md-3"><label>Численность обслуживающего персонала Ч</label><input type="number" name="Ch" class="form-control" value="2"></div>
+                <div class="col-md-3"><label>Норма амортизации N<sub>а</sub>, %</label><input type="number" step="any" name="Na" class="form-control" value="0.2"></div>
+                <div class="col-md-3"><label>Стоимость ПЭВМ C<sub>перв</sub>, руб</label><input type="number" step="any" name="C_perv" class="form-control" value="20000"></div>
+                <div class="col-md-3"><label>Доп. капитальные затраты K<sub>вт</sub>, руб</label><input type="number" step="any" name="Kvt" class="form-control" value="76500"></div>
+                <div class="col-md-3"><label>Капитальные затраты на стр-во K<sub>стр</sub>, руб</label><input type="number" step="any" name="Kstr" class="form-control" value="26000"></div>
+                <div class="col-md-3"><label>Годовой фонд работы ПЭВМ Ф<sub>г</sub>, час</label><input type="number" step="any" name="Fg" class="form-control" value="1020"></div>
+                <div class="col-md-3"><label>Стоимость э/э Ц<sub>э</sub>, руб/кВт·ч</label><input type="number" step="any" name="C_el" class="form-control" value="6.6"></div>
+                <div class="col-md-3"><label>Потребляемая мощность N, кВт</label><input type="number" step="any" name="P_el" class="form-control" value="0.5"></div>
+                <div class="col-md-3"><label>Коэффициент загрузки K<sub>з</sub></label><input type="number" step="any" name="Kz" class="form-control" value="1.0"></div>
+                <div class="col-md-3"><label>Предпроизводственные затраты K<sub>пр</sub>, руб</label><input type="number" step="any" name="Kpr" class="form-control" value="13000"></div>
+            </div>
+        </div>
+
+        <!-- Цикловые и нормативные параметры -->
+        <div class="card mb-3">
+            <div class="card-header">4. Параметры сокращения цикла и эффективности</div>
+            <div class="card-body row">
+                <div class="col-md-3"><label>Длительность цикла T<sub>цппп</sub>, лет</label><input type="number" step="any" name="T_tspp" class="form-control" value="0.17"></div>
+                <div class="col-md-3"><label>Коэффициент сокращения d</label><input type="number" step="any" name="d" class="form-control" value="0.54"></div>
+                <div class="col-md-3"><label>Нормативный коэффициент E<sub>н</sub></label><input type="number" step="any" name="En" class="form-control" value="0.2"></div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg">Выполнить расчёт</button>
+    </form>
+
+    {% if result and result.error %}
+        <div class="alert alert-danger">{{ result.error }}</div>
+    {% elif result and result.g is defined %}
+        <h3>Результаты расчёта</h3>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">Трудоёмкость и высвобождение персонала</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Коэффициент g = T<sub>ИАС</sub> / T<sub>баз</sub> = {{ result.g }}</li>
+                        <li class="list-group-item">Q<sub>1</sub> = H × T<sub>баз</sub> = {{ result.Q1 }} чел.-ч</li>
+                        <li class="list-group-item">Q<sub>2</sub> = Q<sub>1</sub> × g = {{ result.Q2 }} чел.-ч</li>
+                        <li class="list-group-item">ΔQ = Q<sub>1</sub> – Q<sub>2</sub> = {{ result.delta_Q }} чел.-ч</li>
+                        <li class="list-group-item">N<sub>высв</sub> = ΔQ / (Ф<sub>пв</sub> × K<sub>вн</sub>) = {{ result.N_vysv }} чел.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">Составляющие годовых эксплуатационных расходов W</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Зарплата персонала З<sub>пл</sub> = {{ result.Zpl }} руб.</li>
+                        <li class="list-group-item">Амортизация Заморт = {{ result.Zamort }} руб.</li>
+                        <li class="list-group-item">Электроэнергия З<sub>эл.эн</sub> = {{ result.Z_el }} руб.</li>
+                        <li class="list-group-item">Материалы З<sub>матер</sub> = {{ result.Z_mater }} руб.</li>
+                        <li class="list-group-item">Ремонт З<sub>рем</sub> = {{ result.Z_rem }} руб.</li>
+                        <li class="list-group-item">Накладные расходы З<sub>накл</sub> = {{ result.Z_nakl }} руб.</li>
+                        <li class="list-group-item">Прочие З<sub>пр</sub> = {{ result.Z_proch }} руб.</li>
+                        <li class="list-group-item"><strong>Итого W = {{ result.W }} руб.</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">Снижение себестоимости ΔC<sub>пр</sub></div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">ΔC<sub>пр</sub> = ΔQ × C<sub>ч</sub> × K<sub>п</sub> × K<sub>р</sub> × K<sub>д</sub> × K<sub>с</sub> – W = {{ result.delta_Cpr }} руб.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">Изменение единовременных затрат ΔK<sub>пр</sub></div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">ΔK<sub>пр</sub> = (K<sub>вт</sub> + K<sub>стр</sub>) × K<sub>з</sub> + K<sub>пр</sub> = {{ result.delta_Kpr }} руб.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">Экономия от сокращения цикла Σμ</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Σμ = E<sub>н</sub> × ΔC<sub>пр</sub> × T<sub>цппп</sub> × d = {{ result.Sigma_mu }} руб.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">Годовой экономический эффект Σ<sub>год</sub></div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Σ<sub>год</sub> = ΔC<sub>пр</sub> – ΔK<sub>пр</sub> × E<sub>н</sub> + Σμ = {{ result.Sigma_god }} руб.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">Срок окупаемости дополнительных затрат</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">T<sub>ок</sub> = ΔK<sub>пр</sub> / (ΔC<sub>пр</sub> + Σμ) = {{ result.T_ok }} лет</li>
+                        <li class="list-group-item">Нормативный срок (1/E<sub>н</sub>) = {{ "%.2f"|format(1/result.En) }} лет</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">Расчётный коэффициент эффективности</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">E<sub>пр</sub> = Σ<sub>год</sub> / (C<sub>перв</sub> + K<sub>вт</sub> + K<sub>стр</sub>) = {{ result.E_pr }}</li>
+                        <li class="list-group-item">Нормативный E<sub>н</sub> = {{ result.En }}</li>
+                        <li class="list-group-item"><strong>Вывод:</strong> {% if result.E_pr >= result.En %}E<sub>пр</sub> ≥ E<sub>н</sub> – проект экономически эффективен.{% else %}E<sub>пр</sub> < E<sub>н</sub> – проект неэффективен.{% endif %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
