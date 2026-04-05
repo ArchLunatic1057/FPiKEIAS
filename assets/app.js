@@ -32,29 +32,34 @@
   ];
 
   function initTopTabs() {
-    const topTabs = document.getElementById("topTabs");
-    if (!topTabs) return;
+    const topTabsSelect = document.getElementById("topTabsSelect");
+    if (!topTabsSelect) return;
 
+    topTabsSelect.innerHTML = "";
     modules.forEach((m, i) => {
-      const b = document.createElement("button");
-      b.className = `nav-btn${i === 0 ? " active" : ""}`;
-      b.textContent = m.name;
-      b.addEventListener("click", () => showModule(m.id, b));
-      topTabs.appendChild(b);
+      const opt = document.createElement("option");
+      opt.value = m.id;
+      opt.textContent = m.name;
+      if (i === 0) opt.selected = true;
+      topTabsSelect.appendChild(opt);
+    });
+
+    topTabsSelect.addEventListener("change", () => {
+      showModule(topTabsSelect.value);
     });
   }
 
-  function showModule(id, btn) {
+  function showModule(id) {
     document
       .querySelectorAll(".module")
       .forEach((s) => s.classList.remove("active"));
     const moduleEl = document.getElementById(id);
     if (moduleEl) moduleEl.classList.add("active");
 
-    document
-      .querySelectorAll(".nav-btn")
-      .forEach((b) => b.classList.remove("active"));
-    if (btn) btn.classList.add("active");
+    const topTabsSelect = document.getElementById("topTabsSelect");
+    if (topTabsSelect && topTabsSelect.value !== id) {
+      topTabsSelect.value = id;
+    }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
